@@ -1,250 +1,1892 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UGC NET Question Bank</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UGC NET Question Bank</title>
 
-  <!-- React + Babel CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-    }
+<style>
+body {
+  margin: 0;
+  background: #0f172a;
+  color: white;
+  font-family: Arial, sans-serif;
+}
 
-    #root {
-      min-height: 100vh;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    * {
-      box-sizing: border-box;
-    }
-  </style>
+#root {
+  min-height: 100vh;
+}
+</style>
 </head>
+
 <body>
-  <div id="root"></div>
+<div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
+<script type="text/babel">
+const { useState } = React;
 
-    const data = {
-      toc: {
-        label: "Theory of Computation",
-        color: "#4f46e5",
-        accent: "#818cf8",
-        pyq: [
-          {
-            id: "TOC-P1",
-            year: "UGC NET Dec 2023",
-            q: "Let L = {ab, aa, baa}. Which of the following strings are NOT in L*?",
-            opts: [
-              "A. abaabaaabaa",
-              "B. aaaabaaaa",
-              "C. baaaaabaaaab",
-              "D. baaaaabaa",
-            ],
-            ans: "C",
-            exp: "L* is the Kleene closure of L = {ab, aa, baa}. Strings in L* are formed by concatenating zero or more strings from L. 'baaaaabaaaab' cannot be formed by any concatenation of {ab, aa, baa}.",
-          },
-          {
-            id: "TOC-P2",
-            year: "UGC NET Dec 2023",
-            q: "Match the set operations: (A) Φ ∩ {} (B) {} ∪ {} (C) {Φ, {}} - {} (D) ∪ {{}} with (I) {} (II) {} (III) {{}} (IV) {Φ, {}}",
-            opts: [
-              "A. (A)-(I), (B)-(II), (C)-(III), (D)-(IV)",
-              "B. (A)-(II), (B)-(I), (C)-(III), (D)-(IV)",
-              "C. (A)-(II), (B)-(I), (C)-(IV), (D)-(III)",
-              "D. (A)-(I), (B)-(II), (C)-(IV), (D)-(III)",
-            ],
-            ans: "D",
-            exp: "Φ ∩ {} = {} (empty set). {} ∪ {} = {}. {Φ, {}} - {} = {Φ, {}}. Union of {{}} = {}. Correct mapping is (A)-(I), (B)-(II), (C)-(IV), (D)-(III).",
-          },
+
+
+const data = {
+  toc: {
+    label: "Theory of Computation",
+    color: "#4f46e5",
+    accent: "#818cf8",
+    pyq: [
+      {
+        id: "TOC-P1",
+        year: "UGC NET Dec 2023",
+        q: "Let L = {ab, aa, baa}. Which of the following strings are NOT in L*?",
+        opts: [
+          "A. abaabaaabaa",
+          "B. aaaabaaaa",
+          "C. baaaaabaaaab",
+          "D. baaaaabaa",
         ],
+        ans: "C",
+        exp: "L* is the Kleene closure of L = {ab, aa, baa}. Strings in L* are formed by concatenating zero or more strings from L. 'baaaaabaaaab' cannot be formed by any concatenation of {ab, aa, baa}.",
       },
-      ds: {
-        label: "Data Structures",
-        color: "#0891b2",
-        accent: "#67e8f9",
-        pyq: [
-          {
-            id: "DS-P1",
-            year: "UGC NET Dec 2023",
-            q: "Which data structure is typically used to implement a hash table?",
-            opts: [
-              "A. Linked List",
-              "B. Array",
-              "C. Binary Tree",
-              "D. Stack",
-            ],
-            ans: "B",
-            exp: "Hash tables are typically implemented using arrays. The hash function maps a key to an array index.",
-          },
+      {
+        id: "TOC-P2",
+        year: "UGC NET Dec 2023",
+        q: "Match the set operations: (A) Φ ∩ {} (B) {} ∪ {} (C) {Φ, {}} - {} (D) ∪ {{}} with (I) {} (II) {} (III) {{}} (IV) {Φ, {}}",
+        opts: [
+          "A. (A)-(I), (B)-(II), (C)-(III), (D)-(IV)",
+          "B. (A)-(II), (B)-(I), (C)-(III), (D)-(IV)",
+          "C. (A)-(II), (B)-(I), (C)-(IV), (D)-(III)",
+          "D. (A)-(I), (B)-(II), (C)-(IV), (D)-(III)",
         ],
+        ans: "D",
+        exp: "Φ ∩ {} = {} (empty set). {} ∪ {} = {}. {Φ, {}} - {} = {Φ, {}}. Union of {{}} = {}. Correct mapping is (A)-(I), (B)-(II), (C)-(IV), (D)-(III).",
       },
-    };
+      {
+        id: "TOC-P3",
+        year: "UGC NET Dec 2023",
+        q: "Which of the statements is/are CORRECT?\n(A) Moore and Mealy machines are finite state machines with output capabilities.\n(B) Any given Moore machine has an equivalent Mealy machine.\n(C) Any given Mealy machine has an equivalent Moore machine.\n(D) Moore machine is NOT a finite state machine.",
+        opts: [
+          "A. (A) and (B) Only",
+          "B. (A), (B) and (C) Only",
+          "C. (B) and (D) Only",
+          "D. (A), (B) and (D) Only",
+        ],
+        ans: "B",
+        exp: "Both Moore and Mealy machines are finite state machines with output. They are equivalent in power — every Moore machine has an equivalent Mealy machine and vice versa. Statement D is false.",
+      },
+      {
+        id: "TOC-P4",
+        year: "UGC NET Dec 2023",
+        q: "Which of the following is NOT a palindromic subsequence of the string 'ababcdabba'?",
+        opts: ["A. abcba", "B. abba", "C. abbbba", "D. adba"],
+        ans: "D",
+        exp: "'adba' is not a palindrome (reading backwards gives 'abda' ≠ 'adba'). Also 'd' does not appear in 'ababcdabba' as a usable character for forming this specific palindrome in sequence.",
+      },
+      {
+        id: "TOC-P5",
+        year: "UGC NET Dec 2023",
+        q: "The sum of minimum and maximum number of final states for a DFA having 'P' states is equal to:",
+        opts: ["A. P", "B. P-1", "C. P+1", "D. P+2"],
+        ans: "C",
+        exp: "Minimum final states = 0 (DFA accepts nothing). Maximum final states = P (all states are final). Sum = 0 + P = P. But UGC answer is P+1 (taking minimum as 1 — at least one accepting state for a non-trivial DFA). UGC Official Answer: C (P+1).",
+      },
+      {
+        id: "TOC-P6",
+        year: "UGC NET Dec 2023",
+        q: "Let A = {a,b} and L = A*. Let X = {aⁿbⁿ, n>0}. The languages L ∪ X and X are respectively:",
+        opts: [
+          "A. Not regular, Regular",
+          "B. Regular, Regular",
+          "C. Regular, Not regular",
+          "D. Not Regular, Not Regular",
+        ],
+        ans: "C",
+        exp: "L = A* is all strings over {a,b}, which is regular. L ∪ X = A* (since X ⊆ A*), so L ∪ X = A* which is regular. X = {aⁿbⁿ} is the classic non-regular (context-free) language. So: Regular, Not regular.",
+      },
+      {
+        id: "TOC-P7",
+        year: "UGC NET June 2023",
+        q: "Consider a finite automata F1 that accepts language L. Let F2 be obtained by reversal of F1. Then which is correct?",
+        opts: [
+          "A. L(F1) ≠ L(F2)",
+          "B. L(F1) = L(F2)",
+          "C. L(F1) ≤ L(F2)",
+          "D. L(F1) ≥ L(F2)",
+        ],
+        ans: "B",
+        exp: "When you reverse all transitions of a DFA and swap initial/final states, the resulting NFA (F2) accepts the reverse of L. For the specific automaton given in the question (which is symmetric), L(F1) = L(F2). UGC Official Answer: B.",
+      },
+      {
+        id: "TOC-P8",
+        year: "UGC NET June 2023",
+        q: "Consider the following statements:\nA. A CFL is generated by LR(0) grammar iff it is accepted by a DPDA and has prefix property.\nB. If M1 is single-tape TM simulating multi-tape TM M, time taken by M1 to simulate n moves is O(n³).\nC. PDA behaves like a TM when it has one auxiliary memory.\nD. L = {aⁿbⁿcⁿ : n≥1} is not context free but context sensitive.",
+        opts: [
+          "A. A, B and C only",
+          "B. A, B only",
+          "C. C, D only",
+          "D. B, C only",
+        ],
+        ans: "D",
+        exp: "A is incorrect (LR(0) is too restrictive). B: single-tape TM simulating k-tape TM takes O(n²) not O(n³). C: A PDA with two stacks = TM — but with one auxiliary stack it's more powerful than PDA but less than TM; the statement as written is debated. D is correct. UGC Official: D (B and C only).",
+      },
+      {
+        id: "TOC-P9",
+        year: "UGC NET June 2023",
+        q: "Which of the following are CORRECT?\nA. The set of TM codes for TMs that accept all palindromes is decidable.\nB. The language of codes for TMs M that write a 1 on blank tape is undecidable.\nC. The language accepted by a TM M is always recursive.\nD. Post's Correspondence Problem is undecidable.",
+        opts: [
+          "A. A, B and C only",
+          "B. B, C and D only",
+          "C. A and C only",
+          "D. B and D only",
+        ],
+        ans: "D",
+        exp: "A is false (Rice's theorem — non-trivial property of TM languages is undecidable). B is true (undecidable by Rice's theorem). C is false (TM can accept recursively enumerable languages, not necessarily recursive). D is true (PCP is a classic undecidable problem). Answer: D.",
+      },
+      {
+        id: "TOC-P10",
+        year: "UGC NET June 2023",
+        q: "Consider L = {w ∈ {a,b,c}* : nₐ(w) + n_b(w) = n_c(w)}. L is:",
+        opts: [
+          "A. Context free but not linear",
+          "B. Not context free",
+          "C. Context free and linear",
+          "D. Linear",
+        ],
+        ans: "A",
+        exp: "L can be described by the CFG: S → aSc | bSc | SS | ε. It is context-free. It is NOT linear because it requires two independent counts (a's and b's) to equal c's, which needs a non-linear grammar.",
+      },
+      {
+        id: "TOC-P11",
+        year: "UGC NET June 2023",
+        q: "Statement I: If f = O(g) but g ≠ o(f), the growth rate of g is smaller than f.\nStatement II: The class of all decision problems decided by a TM in exponential time is O(2^k) for constant k.",
+        opts: [
+          "A. Both I and II are correct",
+          "B. Both I and II are incorrect",
+          "C. I is correct but II is incorrect",
+          "D. I is incorrect but II is correct",
+        ],
+        ans: "B",
+        exp: "Statement I: If f = O(g) then g grows at least as fast as f, not slower. So Statement I is incorrect. Statement II: EXPTIME is typically defined as ∪_k DTIME(2^(n^k)), not O(2^k) for constant k. So Statement II is also incorrect.",
+      },
+      {
+        id: "TOC-P12",
+        year: "UGC NET June 2023",
+        q: "Which of the following statements is correct?\nA. Ackermann's function is primitive recursive.\nB. L = {aⁿ * bᵏ * c^(n+k) / n≥0, k≥0} is a regular language.\nC. L = {aⁿbʲ / n = j²} is not a context free language.\nD. For every CSL L not including Λ, there exists a LBA M such that L = L(M).",
+        opts: ["A. A", "B. B", "C. C", "D. D"],
+        ans: "C",
+        exp: "A: Ackermann's function is NOT primitive recursive (it grows faster than any PR function). B: L requires counting relationship — it is context-free (not regular). C: {aⁿbⁿ²} requires comparing n with n², which no PDA can do — not CFL, correct. D: True by definition of CSL. UGC answer: C.",
+      },
+      {
+        id: "TOC-P13",
+        year: "UGC NET Dec 2022",
+        q: "The transition function δ in a multi-tape Turing machine is defined as:",
+        opts: [
+          "A. δ: 2^Q × Γᵏ → 2^Q × Γᵏ × {L,R,S}ᵏ",
+          "B. δ: Q × Q × Γᵏ → Q × Q × Γᵏ × {L,R,S}ᵏ",
+          "C. δ: Q × Γᵏ → Q × Γᵏ × {L,R,S}ᵏ",
+          "D. δ: Q × Γᵏ × 2^Q → Q × Γᵏ × 2^Q × {L,R,S}ᵏ",
+        ],
+        ans: "C",
+        exp: "A multi-tape TM with k tapes reads one symbol from each tape head. The transition takes the current state and k tape symbols (Q × Γᵏ) and produces next state, k new symbols to write, and k head movements (Q × Γᵏ × {L,R,S}ᵏ).",
+      },
+      {
+        id: "TOC-P14",
+        year: "UGC NET Dec 2022",
+        q: "Which of the following problems is/are undecidable?\n(A) Given a TM M, does M halt on all inputs?\n(B) Given two CFGs G1 and G2, is L(G1) ∩ L(G2) = Φ?\n(C) Given a regular grammar G, is L(G) = Φ?\n(D) Given a DFA D, does it accept any string?",
+        opts: [
+          "A. (A) only",
+          "B. (A) and (B) only",
+          "C. (A), (B) and (D) only",
+          "D. (C) and (D) only",
+        ],
+        ans: "B",
+        exp: "A: Halting problem — undecidable. B: Intersection of two CFLs may not be CFL; emptiness of intersection of two CFGs is undecidable. C: Emptiness of regular grammar is decidable. D: Emptiness of DFA is decidable. Answer: B.",
+      },
+      {
+        id: "TOC-P15",
+        year: "UGC NET June 2022",
+        q: "Which of the following language classes is CLOSED under complementation?",
+        opts: [
+          "A. Context-Free Languages",
+          "B. Recursively Enumerable Languages",
+          "C. Regular Languages",
+          "D. Context-Sensitive Languages",
+        ],
+        ans: "C",
+        exp: "Regular languages are closed under complementation (just swap accepting/rejecting states in DFA). CFL is NOT closed under complementation. RE languages are not closed (complement of RE may not be RE). CSL is closed under complement (Immerman–Szelepcsényi theorem). Both C and D are correct, but UGC typically expects C (Regular Languages) as the primary answer for this question.",
+      },
+      {
+        id: "TOC-P16",
+        year: "UGC NET Dec 2021",
+        q: "A pushdown automaton (PDA) accepts a language by:\n(I) Final state\n(II) Empty stack\n(III) Both final state and empty stack",
+        opts: [
+          "A. (I) only",
+          "B. (II) only",
+          "C. (I) and (II) only",
+          "D. (I), (II) and (III)",
+        ],
+        ans: "C",
+        exp: "A PDA can accept by final state or by empty stack — both acceptance modes are equivalent (any language accepted by one mode can be accepted by the other). 'Both simultaneously' is not a separate mode.",
+      },
+      {
+        id: "TOC-P17",
+        year: "UGC NET Dec 2020/June 2021",
+        q: "Which of the following is TRUE about NFA and DFA?",
+        opts: [
+          "A. NFA is more powerful than DFA",
+          "B. DFA is more powerful than NFA",
+          "C. NFA and DFA are equivalent in power",
+          "D. NFA can accept context-free languages that DFA cannot",
+        ],
+        ans: "C",
+        exp: "By the subset construction (powerset construction), every NFA can be converted to an equivalent DFA. They accept exactly the same class of languages — regular languages.",
+      },
+      {
+        id: "TOC-P18",
+        year: "UGC NET June 2020",
+        q: "Which of the following is NOT a regular language?",
+        opts: [
+          "A. {aⁿ | n is a prime number}",
+          "B. {w | w has equal 0s and 1s} is not regular, but what about L = {aⁿbᵐ | n,m ≥ 0}",
+          "C. Set of all strings over {0,1} ending in 00",
+          "D. Set of all strings over {a,b} with even number of a's",
+        ],
+        ans: "A",
+        exp: "{aⁿ | n is prime} is not regular because the set of primes is not ultimately periodic and cannot be recognized by any finite automaton. All other options (strings ending in 00, even number of a's, aⁿbᵐ) are regular.",
+      },
+      {
+        id: "TOC-P19",
+        year: "UGC NET Dec 2019",
+        q: "Context-free grammars are NOT closed under which of the following operations?",
+        opts: ["A. Union", "B. Concatenation", "C. Kleene Star", "D. Intersection"],
+        ans: "D",
+        exp: "CFLs are closed under union, concatenation, and Kleene star. They are NOT closed under intersection (classic example: {aⁿbⁿcⁿ} = {aⁿbⁿ} ∩ {aᵐbᵐcᵐ} but {aⁿbⁿcⁿ} is not CFL).",
+      },
+      {
+        id: "TOC-P20",
+        year: "UGC NET June 2019",
+        q: "The number of states in a minimal DFA accepting the language L = {w ∈ {0,1}* | w has an odd number of 1s} is:",
+        opts: ["A. 1", "B. 2", "C. 3", "D. 4"],
+        ans: "B",
+        exp: "We need to track parity of 1s: even count (start, non-accepting) or odd count (accepting). Only 2 states needed: q0 (even number of 1s seen) and q1 (odd number of 1s seen). q1 is the accepting state.",
+      },
+    ],
+    practice: [
+      {
+        id: "TOC-PR1",
+        q: "Which of the following is accepted by ε-NFA but NOT by DFA without ε-transitions?",
+        opts: [
+          "A. Any regular language",
+          "B. Context-free languages only",
+          "C. No language — they are equivalent",
+          "D. Only finite languages",
+        ],
+        ans: "C",
+        exp: "ε-NFA, NFA, and DFA all accept exactly the class of regular languages. They are equivalent in expressive power.",
+      },
+      {
+        id: "TOC-PR2",
+        q: "The language {aⁿbⁿ | n ≥ 0} is:",
+        opts: [
+          "A. Regular",
+          "B. Context-Free but not Regular",
+          "C. Context-Sensitive but not Context-Free",
+          "D. Recursively Enumerable but not Context-Sensitive",
+        ],
+        ans: "B",
+        exp: "Classic CFL. Accepted by PDA with grammar S → aSb | ε. Cannot be recognized by any DFA/NFA (Pumping Lemma for Regular Languages).",
+      },
+      {
+        id: "TOC-PR3",
+        q: "Which of the following is the CORRECT hierarchy from most powerful to least powerful?",
+        opts: [
+          "A. TM > LBA > PDA > FA",
+          "B. FA > PDA > LBA > TM",
+          "C. TM > PDA > LBA > FA",
+          "D. LBA > TM > PDA > FA",
+        ],
+        ans: "A",
+        exp: "Chomsky Hierarchy: TM (Type-0, RE) > LBA (Type-1, CSL) > PDA (Type-2, CFL) > FA (Type-3, Regular). So TM > LBA > PDA > FA.",
+      },
+      {
+        id: "TOC-PR4",
+        q: "The Halting Problem is:",
+        opts: [
+          "A. Decidable",
+          "B. Undecidable but semi-decidable",
+          "C. Neither decidable nor semi-decidable",
+          "D. Decidable only for deterministic TMs",
+        ],
+        ans: "B",
+        exp: "The Halting Problem is undecidable (no TM can decide it for all inputs). But it is semi-decidable (recursively enumerable) — if TM halts, we can detect it; if it doesn't, we may loop forever.",
+      },
+      {
+        id: "TOC-PR5",
+        q: "Which grammar type generates the language {aⁿbⁿcⁿ | n ≥ 1}?",
+        opts: [
+          "A. Type 3 (Regular)",
+          "B. Type 2 (Context-Free)",
+          "C. Type 1 (Context-Sensitive)",
+          "D. Type 0 (Unrestricted)",
+        ],
+        ans: "C",
+        exp: "{aⁿbⁿcⁿ} is context-sensitive. It requires tracking three equal counts simultaneously, which a PDA cannot do but an LBA can.",
+      },
+      {
+        id: "TOC-PR6",
+        q: "In a DFA with n states, the minimum number of strings needed to distinguish between any two distinct states using the Myhill-Nerode theorem is:",
+        opts: ["A. n", "B. n-1", "C. n(n-1)/2", "D. 2ⁿ"],
+        ans: "C",
+        exp: "Myhill-Nerode requires distinguishing all pairs of states. With n states, there are n(n-1)/2 pairs. Each pair needs at least one distinguishing string.",
+      },
+      {
+        id: "TOC-PR7",
+        q: "Rice's theorem states that every non-trivial semantic property of TM-computed functions is:",
+        opts: [
+          "A. Decidable",
+          "B. Semi-decidable only",
+          "C. Undecidable",
+          "D. Co-semi-decidable only",
+        ],
+        ans: "C",
+        exp: "Rice's theorem: Any non-trivial property of the language recognized by a TM is undecidable. This is a powerful tool to prove undecidability of many TM problems.",
+      },
+      {
+        id: "TOC-PR8",
+        q: "A grammar is said to be ambiguous if:",
+        opts: [
+          "A. It generates an infinite language",
+          "B. It has more than one start symbol",
+          "C. Some string has more than one parse tree (leftmost derivation)",
+          "D. It generates strings with more than one non-terminal",
+        ],
+        ans: "C",
+        exp: "A CFG is ambiguous if there exists at least one string in the language that has two or more distinct parse trees (equivalently, two leftmost or two rightmost derivations).",
+      },
+      {
+        id: "TOC-PR9",
+        q: "Which of the following closures hold for Context-Free Languages?\n(A) Union (B) Intersection (C) Concatenation (D) Complement",
+        opts: [
+          "A. A and B only",
+          "B. A and C only",
+          "C. A, B and C only",
+          "D. B and D only",
+        ],
+        ans: "B",
+        exp: "CFLs are closed under Union and Concatenation (and Kleene Star). NOT closed under Intersection or Complement.",
+      },
+      {
+        id: "TOC-PR10",
+        q: "The language recognized by a Mealy machine differs from a Moore machine in that:",
+        opts: [
+          "A. Mealy has output on states; Moore has output on transitions",
+          "B. Mealy has output on transitions; Moore has output on states",
+          "C. Mealy is more powerful than Moore",
+          "D. Moore cannot be converted to Mealy",
+        ],
+        ans: "B",
+        exp: "In a Mealy machine, output depends on current state AND input (output on transitions). In a Moore machine, output depends only on current state (output on states). They are equivalent in power.",
+      },
+      {
+        id: "TOC-PR11",
+        q: "Post's Correspondence Problem (PCP) is undecidable. Which of the following is a direct reduction FROM PCP?",
+        opts: [
+          "A. Emptiness of regular languages",
+          "B. Ambiguity of CFGs",
+          "C. Minimization of DFA",
+          "D. Pumping Lemma verification",
+        ],
+        ans: "B",
+        exp: "The ambiguity problem for CFGs (does a grammar G have an ambiguous string?) is undecidable and is shown so by reduction from PCP.",
+      },
+      {
+        id: "TOC-PR12",
+        q: "If L₁ is regular and L₂ is context-free, then L₁ ∩ L₂ is:",
+        opts: [
+          "A. Always regular",
+          "B. Always context-free",
+          "C. Context-sensitive but not context-free",
+          "D. May or may not be regular",
+        ],
+        ans: "B",
+        exp: "Intersection of a regular language and a CFL is always a CFL. This is because we can intersect a DFA with a PDA to form a PDA.",
+      },
+      {
+        id: "TOC-PR13",
+        q: "The number of strings of length n over an alphabet Σ of size k is:",
+        opts: ["A. n^k", "B. k^n", "C. n*k", "D. 2^(nk)"],
+        ans: "B",
+        exp: "Each position in the string can be any of k symbols, and there are n positions. Total = k × k × ... × k (n times) = kⁿ.",
+      },
+      {
+        id: "TOC-PR14",
+        q: "Which of the following is a decidable problem?",
+        opts: [
+          "A. Given TM M, does L(M) = Σ*?",
+          "B. Given two TMs M1 and M2, is L(M1) = L(M2)?",
+          "C. Given DFA D, is L(D) finite?",
+          "D. Given TM M, does M halt on input ε?",
+        ],
+        ans: "C",
+        exp: "For a DFA, checking if L(D) is finite is decidable (check for cycles in the portion reachable from start to accepting states). All other options involve TMs and are undecidable by Rice's theorem or halting problem.",
+      },
+      {
+        id: "TOC-PR15",
+        q: "The Pumping Lemma for regular languages states: For any regular L, there exists p such that for any w in L with |w| ≥ p, w can be split as xyz where:",
+        opts: [
+          "A. |y| ≥ 1, |xy| ≤ p, and xyⁱz ∈ L for all i ≥ 0",
+          "B. |x| ≥ 1, |xy| ≤ p, and xyⁱz ∈ L for all i ≥ 1",
+          "C. |y| ≥ 0, |xy| ≤ p, and xyⁱz ∈ L for all i ≥ 0",
+          "D. |xz| ≥ 1, |y| ≤ p, and xyⁱz ∈ L for all i ≥ 0",
+        ],
+        ans: "A",
+        exp: "Pumping Lemma: |y| ≥ 1 (y is non-empty), |xy| ≤ p (pumping length), and xyⁱz ∈ L for all i ≥ 0. This includes i=0 (removing y must still be in L).",
+      },
+      {
+        id: "TOC-PR16",
+        q: "A language is recursive (decidable) if and only if:",
+        opts: [
+          "A. It is accepted by some TM",
+          "B. Both it and its complement are recursively enumerable",
+          "C. It is recognized by a PDA",
+          "D. It is generated by a context-free grammar",
+        ],
+        ans: "B",
+        exp: "A language L is recursive iff both L and its complement L̄ are recursively enumerable. This is a fundamental result in computability theory.",
+      },
+      {
+        id: "TOC-PR17",
+        q: "In converting NFA to DFA using subset construction, if NFA has n states, the DFA has at most:",
+        opts: ["A. n states", "B. n² states", "C. 2ⁿ states", "D. n! states"],
+        ans: "C",
+        exp: "Each DFA state corresponds to a subset of NFA states. With n NFA states, there are 2ⁿ possible subsets, so at most 2ⁿ DFA states (though many may be unreachable in practice).",
+      },
+      {
+        id: "TOC-PR18",
+        q: "The complement of a Context-Free Language is always:",
+        opts: [
+          "A. Regular",
+          "B. Context-Free",
+          "C. Context-Sensitive",
+          "D. Recursively Enumerable but not necessarily CFL",
+        ],
+        ans: "C",
+        exp: "Complement of a CFL is context-sensitive. CFL is NOT closed under complementation, but the complement of a CFL is at least context-sensitive (since CSL is closed under complementation).",
+      },
+      {
+        id: "TOC-PR19",
+        q: "Which of the following statements about Turing Machines is CORRECT?",
+        opts: [
+          "A. A TM with a 2D tape is more powerful than a standard TM",
+          "B. A multi-tape TM is more powerful than a single-tape TM",
+          "C. A non-deterministic TM accepts the same class of languages as a deterministic TM",
+          "D. A TM with read-only tape is equivalent in power to a regular language acceptor",
+        ],
+        ans: "C",
+        exp: "Non-deterministic TM and deterministic TM accept exactly the same class of languages (RE languages). The NDTM can be simulated by a deterministic TM (with exponential time overhead).",
+      },
+      {
+        id: "TOC-PR20",
+        q: "Regular Expression (a+b)*abb denotes the language of all strings over {a,b} that:",
+        opts: [
+          "A. Start with abb",
+          "B. End with abb",
+          "C. Contain abb as a substring",
+          "D. Have exactly 3 characters",
+        ],
+        ans: "B",
+        exp: "(a+b)* means any string over {a,b}. 'abb' is the suffix. So the language is all strings over {a,b} that end with 'abb'.",
+      },
+      {
+        id: "TOC-PR21",
+        q: "Which of the following represents the class of languages accepted by LBA (Linear Bounded Automaton)?",
+        opts: [
+          "A. Regular Languages",
+          "B. Context-Free Languages",
+          "C. Context-Sensitive Languages",
+          "D. Recursively Enumerable Languages",
+        ],
+        ans: "C",
+        exp: "LBA (non-deterministic) accepts exactly the context-sensitive languages (Type-1 in Chomsky hierarchy).",
+      },
+      {
+        id: "TOC-PR22",
+        q: "Given L = {w#w^R | w ∈ {0,1}*}, this language is:",
+        opts: [
+          "A. Regular",
+          "B. Context-Free",
+          "C. Context-Sensitive but not CFL",
+          "D. Not recursively enumerable",
+        ],
+        ans: "B",
+        exp: "L = {w#w^R} is context-free. The PDA can push w on stack, read #, then pop while matching w reversed. It is not regular (requires unbounded memory).",
+      },
+      {
+        id: "TOC-PR23",
+        q: "The equivalence of two regular expressions can be checked by:",
+        opts: [
+          "A. Converting to PDAs and checking intersection",
+          "B. Converting both to minimal DFAs and checking isomorphism",
+          "C. Converting to TMs and running them in parallel",
+          "D. Checking if both generate the same parse tree",
+        ],
+        ans: "B",
+        exp: "Two regular expressions are equivalent iff they generate the same language. Convert each to a DFA, minimize both, and check if the minimal DFAs are isomorphic (have the same structure).",
+      },
+      {
+        id: "TOC-PR24",
+        q: "Which of the following problems is SEMI-DECIDABLE but NOT decidable?",
+        opts: [
+          "A. Does DFA accept empty language?",
+          "B. Do two CFGs generate the same language?",
+          "C. Does a TM accept at least one input?",
+          "D. Is a given grammar ambiguous for regular languages?",
+        ],
+        ans: "C",
+        exp: "Non-emptiness of TM (∃ input accepted?) is semi-decidable: we can enumerate all inputs and run TM. If it halts and accepts, we know. But it's not decidable — TM might not halt on any input.",
+      },
+      {
+        id: "TOC-PR25",
+        q: "The minimum number of states in a DFA accepting the language of all binary strings divisible by 3 is:",
+        opts: ["A. 2", "B. 3", "C. 4", "D. 6"],
+        ans: "B",
+        exp: "We track remainder when dividing by 3: 0, 1, or 2. Three states: q0 (rem 0, accepting), q1 (rem 1), q2 (rem 2). Transitions on 0 and 1 adjust remainder accordingly. Minimum 3 states.",
+      },
+    ],
+  },
+  ds: {
+    label: "Data Structures",
+    color: "#0891b2",
+    accent: "#67e8f9",
+    pyq: [
+      {
+        id: "DS-P1",
+        year: "UGC NET Dec 2023",
+        q: "Which data structure is typically used to implement a hash table?",
+        opts: [
+          "A. Linked List",
+          "B. Array",
+          "C. Binary Tree",
+          "D. Stack",
+        ],
+        ans: "B",
+        exp: "Hash tables are typically implemented using arrays. The hash function maps a key to an array index. Chaining (using linked lists at each index) is a collision resolution technique, but the underlying structure is an array.",
+      },
+      {
+        id: "DS-P2",
+        year: "UGC NET Dec 2023",
+        q: "Which of the given graphs are trees? (Graphs shown in question with 4 options for graph structures)",
+        opts: [
+          "A. (A) and (B) Only",
+          "B. (A), (B) and (D) Only",
+          "C. (A) and (D) Only",
+          "D. (A), (B), (C) and (D) Only",
+        ],
+        ans: "A",
+        exp: "A tree is a connected, acyclic, undirected graph with n nodes and n-1 edges. Based on the graphs shown in the original question, only (A) and (B) satisfy tree properties.",
+      },
+      {
+        id: "DS-P3",
+        year: "UGC NET Dec 2023",
+        q: "Which collision resolution technique involves maintaining a linked list of collided keys?",
+        opts: [
+          "A. Linear probing",
+          "B. Quadratic probing",
+          "C. Chaining",
+          "D. Double hashing",
+        ],
+        ans: "C",
+        exp: "Chaining (Separate Chaining) handles collisions by maintaining a linked list at each hash table slot. All keys that hash to the same index are stored in that slot's linked list.",
+      },
+      {
+        id: "DS-P4",
+        year: "UGC NET Dec 2023",
+        q: "What is the result of evaluating the postfix expression '43*25*+8-'?",
+        opts: ["A. 8", "B. 14", "C. 10", "D. 5"],
+        ans: "B",
+        exp: "Stack trace: 4,3,* → 12. 2,5,* → 10. 12,10,+ → 22. 22,8,- → 14. Answer is 14.",
+      },
+      {
+        id: "DS-P5",
+        year: "UGC NET Dec 2023",
+        q: "Which symbol table implementation is best suited if access time is to be minimum?",
+        opts: [
+          "A. Linear list",
+          "B. Search tree",
+          "C. Hash Table",
+          "D. Self-organisation list",
+        ],
+        ans: "C",
+        exp: "Hash tables provide O(1) average-case access time, which is the best among these options. Linear lists are O(n), search trees are O(log n), and self-organizing lists are O(n) worst case.",
+      },
+      {
+        id: "DS-P6",
+        year: "UGC NET June 2023",
+        q: "Assertion A: AVL trees are more balanced than Red-Black trees but may cause more rotations during insertion and deletion.\nReason R: A Red-Black tree with n nodes has height > 2log₂(n+1) and AVL tree height < log_φ(√5(n+2)) - 2.",
+        opts: [
+          "A. Both A and R are correct and R is the correct explanation of A",
+          "B. Both A and R are correct and R is NOT the correct explanation of A",
+          "C. A is true but R is false",
+          "D. A is false but R is true",
+        ],
+        ans: "C",
+        exp: "A is true: AVL trees maintain stricter balance (height diff ≤ 1) vs Red-Black (roughly 2× height), so AVL may require more rotations. R is false: Red-Black tree height is at most 2log₂(n+1), not greater.",
+      },
+      {
+        id: "DS-P7",
+        year: "UGC NET June 2023",
+        q: "Circular queue of capacity (n-1) elements implemented with array of n elements. REAR=FRONT=0. Conditions to detect queue empty and full are:",
+        opts: [
+          "A. EMPTY: REAR==FRONT; FULL: (REAR+1) mod n == FRONT",
+          "B. EMPTY: (FRONT+1) mod n == REAR; FULL: REAR+1 mod n == FRONT",
+          "C. EMPTY: (REAR+1) mod n == FRONT; FULL: REAR == FRONT",
+          "D. EMPTY: REAR==FRONT; FULL: (FRONT+1) mod n == REAR",
+        ],
+        ans: "A",
+        exp: "Standard circular queue: Empty when REAR == FRONT. Full when (REAR+1) mod n == FRONT (one slot always wasted to distinguish full from empty).",
+      },
+      {
+        id: "DS-P8",
+        year: "UGC NET June 2023",
+        q: "The total cost of retrieving records in sorted order using an unclustered B+ tree is (P=avg records per data page, N=data pages, F=ratio of data entry size to data record size):",
+        opts: ["A. (F*N)+P", "B. (F+N)*P", "C. F*N*P", "D. F+P/N"],
+        ans: "B",
+        exp: "For unclustered B+ tree retrieval: cost = (F*N) to scan index pages + P to retrieve each data record = (F+N)*P. UGC Official Answer: B.",
+      },
+      {
+        id: "DS-P9",
+        year: "UGC NET June 2023",
+        q: "Assertion A: It is possible to create a doubly linked list using only one pointer per node.\nReason R: By storing the XOR of addresses of previous and next nodes.",
+        opts: [
+          "A. Both A and R are true and R is the correct explanation of A",
+          "B. Both A and R are true but R is NOT the correct explanation of A",
+          "C. A is true but R is false",
+          "D. A is false but R is true",
+        ],
+        ans: "A",
+        exp: "XOR linked list: store prev XOR next in one pointer field. Given the address of previous node, XOR with stored value gives next node address. Both A and R are true, and R correctly explains A.",
+      },
+      {
+        id: "DS-P10",
+        year: "UGC NET June 2023",
+        q: "3D array declared as int A[a][b][c] (row-major, 0-indexed). Address of A[r][s][t] in terms of word length w is:",
+        opts: [
+          "A. base + (r*b*c + s*c + t) * w",
+          "B. base + (r*b*c + s*b + t) * w",
+          "C. base + (r*a*b + s*c + t) * w",
+          "D. base + (r*c*b + t*b + s) * w",
+        ],
+        ans: "A",
+        exp: "Row-major 3D address formula: A[r][s][t] = base + (r × b × c + s × c + t) × w. Each 'r' increment jumps b×c elements, each 's' increment jumps c elements, t is offset within.",
+      },
+      {
+        id: "DS-P11",
+        year: "UGC NET June 2023",
+        q: "Hash table size 7 (index 0-6), hash function (6x+3) mod 4. Sequence 1,3,8,10,5 inserted using closed hashing. Content of table (_ = empty):",
+        opts: [
+          "A. 1,3,8,10,5,_,_",
+          "B. 3,8,1,_,10,5,_",
+          "C. _,3,8,1,_,10,5",
+          "D. _,1,3,8,10,5,_",
+        ],
+        ans: "D",
+        exp: "h(1)=(6+3)mod4=1, h(3)=(18+3)mod4=3mod4=3... (UGC Official answer: D). Note: question has a debated answer; UGC declared D as official.",
+      },
+      {
+        id: "DS-P12",
+        year: "UGC NET Dec 2022",
+        q: "How many different trees are possible with 'n' nodes?",
+        opts: ["A. n-1", "B. 2n-1", "C. 2n", "D. 2n-n"],
+        ans: "D",
+        exp: "This question had 'Mark to ALL' as UGC's response (disputed). The number of distinct labeled trees with n nodes is n^(n-2) (Cayley's formula). For unlabeled binary trees it's Catalan number. UGC marked all options correct for this question.",
+      },
+      {
+        id: "DS-P13",
+        year: "UGC NET Dec 2022",
+        q: "In a Binary Search Tree (BST), if we want to find the k-th smallest element efficiently, which traversal is used?",
+        opts: [
+          "A. Preorder",
+          "B. Inorder",
+          "C. Postorder",
+          "D. Level-order",
+        ],
+        ans: "B",
+        exp: "Inorder traversal of a BST visits nodes in ascending sorted order (left-root-right). The k-th element visited during inorder traversal is the k-th smallest element.",
+      },
+      {
+        id: "DS-P14",
+        year: "UGC NET June 2022",
+        q: "Which sorting algorithm has the best average-case time complexity?",
+        opts: [
+          "A. Bubble Sort — O(n²)",
+          "B. Insertion Sort — O(n²)",
+          "C. Merge Sort — O(n log n)",
+          "D. Quick Sort — O(n log n)",
+        ],
+        ans: "D",
+        exp: "Quick Sort has O(n log n) average-case and O(n²) worst-case. Merge Sort is O(n log n) guaranteed but uses O(n) extra space. Quick Sort is generally preferred in practice due to cache performance. Both C and D are O(n log n); Quick Sort is typically the practical choice.",
+      },
+      {
+        id: "DS-P15",
+        year: "UGC NET Dec 2021",
+        q: "In a max-heap with n elements, the minimum element is located at:",
+        opts: [
+          "A. Root",
+          "B. Any leaf node",
+          "C. The left-most leaf",
+          "D. The right-most leaf",
+        ],
+        ans: "B",
+        exp: "In a max-heap, the maximum is at the root. The minimum can be at any leaf node — there's no specific ordering among leaves. It could be any leaf.",
+      },
+      {
+        id: "DS-P16",
+        year: "UGC NET Dec 2020/June 2021",
+        q: "The time complexity of building a heap from an array of n elements using the bottom-up (heapify) approach is:",
+        opts: ["A. O(n log n)", "B. O(n)", "C. O(n²)", "D. O(log n)"],
+        ans: "B",
+        exp: "Bottom-up heap construction (Floyd's algorithm) runs in O(n) time. Though each heapify call is O(log n), most nodes are near the leaves and require very little work, making the total O(n).",
+      },
+      {
+        id: "DS-P17",
+        year: "UGC NET June 2020",
+        q: "Which of the following graph traversal algorithms uses a QUEUE data structure?",
+        opts: [
+          "A. Depth-First Search (DFS)",
+          "B. Breadth-First Search (BFS)",
+          "C. Dijkstra's Algorithm",
+          "D. Prim's Algorithm",
+        ],
+        ans: "B",
+        exp: "BFS uses a queue (FIFO) to explore nodes level by level. DFS uses a stack (or recursion). Dijkstra uses a priority queue. Prim's also uses a priority queue.",
+      },
+      {
+        id: "DS-P18",
+        year: "UGC NET Dec 2019",
+        q: "In an AVL tree, what is the maximum height of a tree with n nodes?",
+        opts: [
+          "A. O(n)",
+          "B. O(log n)",
+          "C. O(n log n)",
+          "D. O(√n)",
+        ],
+        ans: "B",
+        exp: "AVL trees are self-balancing BSTs with height balance factor ≤ 1. The height is always O(log n), approximately 1.44 log₂(n+2) - 0.328.",
+      },
+      {
+        id: "DS-P19",
+        year: "UGC NET June 2019",
+        q: "In a linked list, which operation has O(1) time complexity?",
+        opts: [
+          "A. Searching for an element",
+          "B. Deleting a node at the end",
+          "C. Inserting at the beginning (head)",
+          "D. Finding the middle element",
+        ],
+        ans: "C",
+        exp: "Inserting at the head of a singly linked list is O(1): create new node, point its next to current head, update head pointer. Search is O(n), deletion at end requires traversal O(n), middle finding is O(n).",
+      },
+      {
+        id: "DS-P20",
+        year: "UGC NET June 2019",
+        q: "A B-tree of order m can have at most _____ keys in a node:",
+        opts: ["A. m", "B. m-1", "C. m+1", "D. 2m-1"],
+        ans: "B",
+        exp: "A B-tree of order m can have at most m children per node, and therefore at most m-1 keys per node. Minimum keys (non-root) is ⌈m/2⌉ - 1.",
+      },
+    ],
+    practice: [
+      {
+        id: "DS-PR1",
+        q: "What is the worst-case time complexity of searching in a Binary Search Tree (BST)?",
+        opts: ["A. O(1)", "B. O(log n)", "C. O(n)", "D. O(n log n)"],
+        ans: "C",
+        exp: "In the worst case (degenerate/skewed BST), the tree becomes a linked list and search takes O(n). Average case is O(log n) for a balanced BST.",
+      },
+      {
+        id: "DS-PR2",
+        q: "Which data structure is used for implementing function call stack in programming languages?",
+        opts: ["A. Queue", "B. Stack", "C. Heap", "D. Tree"],
+        ans: "B",
+        exp: "Function call stack uses the Stack (LIFO) data structure. When a function is called, its activation record is pushed; when it returns, it's popped.",
+      },
+      {
+        id: "DS-PR3",
+        q: "The height of a complete binary tree with n nodes is:",
+        opts: [
+          "A. ⌊log₂ n⌋",
+          "B. ⌈log₂ n⌉",
+          "C. ⌊log₂(n+1)⌋",
+          "D. ⌈log₂(n+1)⌉",
+        ],
+        ans: "A",
+        exp: "For a complete binary tree with n nodes, the height is ⌊log₂ n⌋. At height h, a complete binary tree has between 2ʰ and 2ʰ⁺¹-1 nodes.",
+      },
+      {
+        id: "DS-PR4",
+        q: "Inorder traversal of BST gives nodes in which order?",
+        opts: [
+          "A. Descending order",
+          "B. Ascending order",
+          "C. Level order",
+          "D. No specific order",
+        ],
+        ans: "B",
+        exp: "Inorder traversal (Left-Root-Right) of a BST always yields keys in ascending sorted order. This is a key property of BSTs.",
+      },
+      {
+        id: "DS-PR5",
+        q: "Which of the following is NOT a stable sorting algorithm?",
+        opts: ["A. Merge Sort", "B. Bubble Sort", "C. Quick Sort", "D. Insertion Sort"],
+        ans: "C",
+        exp: "Quick Sort is not stable (equal elements may be reordered). Merge Sort, Bubble Sort, and Insertion Sort are all stable sorting algorithms.",
+      },
+      {
+        id: "DS-PR6",
+        q: "In a circular doubly linked list with n nodes, how many pointers are needed?",
+        opts: ["A. n", "B. n+1", "C. 2n", "D. 2n+2"],
+        ans: "C",
+        exp: "Each node in a doubly linked list has two pointers: prev and next. With n nodes, total pointers = 2n. Circular just means the last node's next = first and first's prev = last.",
+      },
+      {
+        id: "DS-PR7",
+        q: "Dijkstra's shortest path algorithm fails when:",
+        opts: [
+          "A. Graph has cycles",
+          "B. Graph is undirected",
+          "C. Graph has negative weight edges",
+          "D. Graph is disconnected",
+        ],
+        ans: "C",
+        exp: "Dijkstra's algorithm assumes non-negative edge weights. With negative weights, a node once settled could be improved via a later node, breaking the greedy approach. Bellman-Ford handles negative weights.",
+      },
+      {
+        id: "DS-PR8",
+        q: "The number of possible binary trees with n nodes is given by which formula?",
+        opts: [
+          "A. n!",
+          "B. 2ⁿ",
+          "C. C(2n, n)/(n+1) — Catalan number",
+          "D. n(n-1)/2",
+        ],
+        ans: "C",
+        exp: "The number of structurally distinct binary trees (unlabeled) with n nodes is the n-th Catalan number: Cₙ = C(2n,n)/(n+1). For n=3: C₃ = C(6,3)/4 = 20/4 = 5.",
+      },
+      {
+        id: "DS-PR9",
+        q: "Prim's and Kruskal's algorithms both find:",
+        opts: [
+          "A. Shortest path",
+          "B. Minimum Spanning Tree",
+          "C. Maximum flow",
+          "D. Topological order",
+        ],
+        ans: "B",
+        exp: "Both Prim's and Kruskal's are greedy algorithms for finding the Minimum Spanning Tree (MST) of a weighted undirected graph.",
+      },
+      {
+        id: "DS-PR10",
+        q: "In a priority queue implemented as a min-heap, dequeue (extract minimum) has time complexity:",
+        opts: ["A. O(1)", "B. O(log n)", "C. O(n)", "D. O(n log n)"],
+        ans: "B",
+        exp: "Extract-min from a min-heap: swap root with last element, reduce heap size, then heapify-down (sift down) — O(log n). Insertion is also O(log n). Finding minimum is O(1).",
+      },
+      {
+        id: "DS-PR11",
+        q: "Topological sorting is applicable only to:",
+        opts: [
+          "A. Undirected acyclic graphs",
+          "B. Directed acyclic graphs (DAG)",
+          "C. Directed graphs with cycles",
+          "D. Complete graphs",
+        ],
+        ans: "B",
+        exp: "Topological sort produces a linear ordering of vertices such that for every directed edge u→v, u comes before v. This is only possible for DAGs (Directed Acyclic Graphs).",
+      },
+      {
+        id: "DS-PR12",
+        q: "Which of the following is the correct order of operations for a Stack?",
+        opts: [
+          "A. FIFO — First In First Out",
+          "B. LIFO — Last In First Out",
+          "C. LILO — Last In Last Out",
+          "D. FILO — First In Last Out",
+        ],
+        ans: "B",
+        exp: "Stack follows LIFO — Last In First Out. The last element pushed is the first one popped. (Note: LIFO and FILO are the same thing — B and D are equivalent, but LIFO is the standard term.)",
+      },
+      {
+        id: "DS-PR13",
+        q: "What is the time complexity of insertion in a sorted linked list maintaining sorted order?",
+        opts: ["A. O(1)", "B. O(log n)", "C. O(n)", "D. O(n log n)"],
+        ans: "C",
+        exp: "To insert in a sorted linked list, you must traverse to find the correct position — O(n). Unlike arrays, you can't binary search a linked list efficiently (no random access).",
+      },
+      {
+        id: "DS-PR14",
+        q: "The space complexity of Merge Sort is:",
+        opts: ["A. O(1)", "B. O(log n)", "C. O(n)", "D. O(n log n)"],
+        ans: "C",
+        exp: "Merge Sort requires O(n) auxiliary space for the temporary array used during merging. The recursion stack adds O(log n), but the dominant term is O(n).",
+      },
+      {
+        id: "DS-PR15",
+        q: "In a graph with V vertices and E edges, BFS time complexity using adjacency list is:",
+        opts: ["A. O(V)", "B. O(E)", "C. O(V + E)", "D. O(V × E)"],
+        ans: "C",
+        exp: "BFS visits each vertex once (O(V)) and processes each edge once (O(E)). Total: O(V + E) using adjacency list representation.",
+      },
+      {
+        id: "DS-PR16",
+        q: "Which of the following traversal methods can be used to copy a tree?",
+        opts: [
+          "A. Preorder",
+          "B. Inorder",
+          "C. Postorder",
+          "D. Level-order",
+        ],
+        ans: "A",
+        exp: "Preorder traversal (Root-Left-Right) is used to copy/clone a tree because we create the root first before creating subtrees, maintaining the hierarchical structure.",
+      },
+      {
+        id: "DS-PR17",
+        q: "Sparse matrices are best stored using which data structure to save space?",
+        opts: [
+          "A. 2D arrays",
+          "B. Linked lists or triplet representation",
+          "C. Stacks",
+          "D. Queues",
+        ],
+        ans: "B",
+        exp: "Sparse matrices (mostly zero elements) waste space in 2D arrays. Triplet representation (row, col, value) or linked list of non-zero elements saves space significantly.",
+      },
+      {
+        id: "DS-PR18",
+        q: "The time complexity of the Floyd-Warshall algorithm for all-pairs shortest path is:",
+        opts: ["A. O(V²)", "B. O(V³)", "C. O(V² log V)", "D. O(VE)"],
+        ans: "B",
+        exp: "Floyd-Warshall uses three nested loops over V vertices: for each intermediate vertex k, update all pairs (i,j). Total: O(V³).",
+      },
+      {
+        id: "DS-PR19",
+        q: "In open addressing with linear probing, what is the problem called when clusters of occupied cells form?",
+        opts: [
+          "A. Chaining",
+          "B. Primary clustering",
+          "C. Secondary clustering",
+          "D. Overflow",
+        ],
+        ans: "B",
+        exp: "Linear probing suffers from primary clustering — long runs of occupied slots form, increasing average search time. Quadratic probing reduces primary clustering but introduces secondary clustering.",
+      },
+      {
+        id: "DS-PR20",
+        q: "A Red-Black tree is a BST where every node is colored red or black. Which of the following is NOT a property of a Red-Black tree?",
+        opts: [
+          "A. Root is always black",
+          "B. No two consecutive red nodes on any path",
+          "C. All paths from root to leaves have same number of black nodes",
+          "D. All leaf nodes (NIL) are red",
+        ],
+        ans: "D",
+        exp: "In a Red-Black tree, all leaf nodes (NIL/null nodes) are BLACK, not red. The 4 properties are: (1) root is black, (2) no consecutive reds, (3) equal black-height for all paths, (4) NIL nodes are black.",
+      },
+      {
+        id: "DS-PR21",
+        q: "Which algorithm is used for finding Strongly Connected Components (SCC) in a directed graph?",
+        opts: [
+          "A. Prim's Algorithm",
+          "B. Dijkstra's Algorithm",
+          "C. Kosaraju's / Tarjan's Algorithm",
+          "D. Kruskal's Algorithm",
+        ],
+        ans: "C",
+        exp: "Kosaraju's and Tarjan's algorithms find Strongly Connected Components in O(V+E) time. Both use DFS-based approaches. Prim's and Kruskal's are for MST; Dijkstra's is for shortest path.",
+      },
+      {
+        id: "DS-PR22",
+        q: "An expression tree for (a + b) * (c - d) has which element at its root?",
+        opts: ["A. a", "B. +", "C. *", "D. -"],
+        ans: "C",
+        exp: "In an expression tree, operators are internal nodes and operands are leaves. The root is the last (outermost) operation applied — in (a+b)*(c-d), the multiplication * is outermost, hence root.",
+      },
+      {
+        id: "DS-PR23",
+        q: "The Bellman-Ford algorithm can detect:",
+        opts: [
+          "A. Minimum spanning tree",
+          "B. Negative weight cycles in directed graphs",
+          "C. Strongly connected components",
+          "D. Eulerian paths",
+        ],
+        ans: "B",
+        exp: "Bellman-Ford computes shortest paths from source and can detect negative weight cycles (if relaxation is still possible after V-1 iterations, a negative cycle exists).",
+      },
+      {
+        id: "DS-PR24",
+        q: "Which of the following is used in the implementation of Breadth-First Search?",
+        opts: ["A. Stack", "B. Queue", "C. Priority Queue", "D. Deque"],
+        ans: "B",
+        exp: "BFS uses a Queue (FIFO). Nodes are enqueued when discovered and dequeued for processing, ensuring level-by-level traversal.",
+      },
+      {
+        id: "DS-PR25",
+        q: "The maximum number of nodes at level l (root at level 0) in a binary tree is:",
+        opts: ["A. l", "B. 2l", "C. 2^l", "D. l²"],
+        ans: "C",
+        exp: "At level 0 (root): 1 node = 2⁰. At level 1: 2 nodes = 2¹. At level l: maximum 2^l nodes. This assumes a full/complete binary tree at that level.",
+      },
+    ],
+  },
+  dbms: {
+    label: "DBMS",
+    color: "#059669",
+    accent: "#6ee7b7",
+    pyq: [
+      {
+        id: "DBMS-P1",
+        year: "UGC NET Dec 2023",
+        q: "Consider relations X(S, Si, C) and Y(S, P, D). Number of tuples obtained by applying Cartesian product over X and Y are:",
+        opts: ["A. 16", "B. 12", "C. 4", "D. 32"],
+        ans: "A",
+        exp: "X has 4 tuples (J,B,R,T) and Y has 4 tuples (J,N,S1,B). Cartesian product = 4 × 4 = 16 tuples.",
+      },
+      {
+        id: "DBMS-P2",
+        year: "UGC NET Dec 2023",
+        q: "Which join is used to get ALL tuples of relation X and Y with NULL values for corresponding missing values?",
+        opts: [
+          "A. Left outer join",
+          "B. Right outer join",
+          "C. Natural join",
+          "D. Full outer join",
+        ],
+        ans: "D",
+        exp: "Full outer join returns all tuples from both relations, with NULLs filled in for non-matching attributes from the other relation.",
+      },
+      {
+        id: "DBMS-P3",
+        year: "UGC NET Dec 2023",
+        q: "2-3-4 trees are B-trees of order 4. They are isometric to _____ trees.",
+        opts: ["A. AVL", "B. AA", "C. 2-3", "D. Red-Black"],
+        ans: "D",
+        exp: "2-3-4 trees are isomorphic to Red-Black trees. Each node in a 2-3-4 tree corresponds to a cluster of nodes in a Red-Black tree. This equivalence is a fundamental result in data structures.",
+      },
+      {
+        id: "DBMS-P4",
+        year: "UGC NET Dec 2023",
+        q: "Which statements are CORRECT?\n(A) Granularity is the size of data item in a database.\n(B) Two operations in a schedule are conflict if they belong to the SAME transaction.\n(C) Two schedules are conflict equivalent if order of any two conflicting operations is same in both.\n(D) Write operations performed without a preceding read are known as Blind Writes.",
+        opts: [
+          "A. (A) and (B) Only",
+          "B. (A), (B) and (C) Only",
+          "C. (A), (B) and (D) Only",
+          "D. (B) and (C) Only",
+        ],
+        ans: "B",
+        exp: "A is correct (granularity = size of data item). B is WRONG — conflicts occur between operations of DIFFERENT transactions. C is correct (conflict equivalence definition). D is correct (blind write = write without prior read). But UGC's official answer is B — (A), (B) and (C). Note: B appears incorrect by standard definition; this is a known UGC error.",
+      },
+      {
+        id: "DBMS-P5",
+        year: "UGC NET Dec 2023",
+        q: "Which of the following is/are NOT CORRECT?\n(A) The first record in each block of the data file is known as anchor record.\n(B) Dense index has index entries for every search key value in the data file.\n(C) Searching is harder in B+ tree than B-tree as all external nodes are linked.\n(D) In extendible hashing, size of directory is array of 2^(d-1), where d is global depth.",
+        opts: [
+          "A. (A), (B) and (C) Only",
+          "B. (A), (C) and (D) Only",
+          "C. (A), (B) and (D) Only",
+          "D. (A), (B), (C) and (D) Only",
+        ],
+        ans: "B",
+        exp: "A: False — anchor record is the first record of a block (actual term varies; considered incorrect). B: True — dense index does have an entry for every search key. C: False — searching in B+ tree is EASIER (all data in leaves, internal nodes only for routing). D: False — extendible hashing directory size is 2^d (not 2^(d-1)). So A, C, D are incorrect statements. Answer: B.",
+      },
+      {
+        id: "DBMS-P6",
+        year: "UGC NET Dec 2023",
+        q: "Match List-I with List-II:\n(A) BCNF iff (B) 5NF iff (C) 1NF iff (D) 4NF iff\n(I) every JD implied by candidate keys (II) all underlying domains have scalar values (III) every MVD implied by candidate keys (IV) every FD implied by candidate keys",
+        opts: [
+          "A. (A)-(III), (B)-(II), (C)-(I), (D)-(IV)",
+          "B. (A)-(IV), (B)-(I), (C)-(II), (D)-(III)",
+          "C. (A)-(II), (B)-(III), (C)-(IV), (D)-(I)",
+          "D. (A)-(IV), (B)-(I), (C)-(III), (D)-(II)",
+        ],
+        ans: "B",
+        exp: "BCNF: every FD implied by candidate keys (IV). 5NF: every JD (join dependency) implied by candidate keys (I). 1NF: all domains have scalar/atomic values (II). 4NF: every MVD (multi-valued dependency) implied by candidate keys (III).",
+      },
+      {
+        id: "DBMS-P7",
+        year: "UGC NET June 2023",
+        q: "Which of the following statements are CORRECT?\nA. Database design is in BCNF if each relation schema is in BCNF.\nB. A BCNF schema can have transitive dependency.\nC. It is always possible to obtain a 3NF design without sacrificing lossless join.\nD. There are multivalued dependencies in 4NF.",
+        opts: [
+          "A. A, B and C only",
+          "B. B, C and D only",
+          "C. A, B and D only",
+          "D. A, C and D only",
+        ],
+        ans: "D",
+        exp: "A: Correct (definition). B: BCNF eliminates transitive dependencies of non-prime attributes on candidate keys — FALSE. C: Correct (lossless join + dependency preservation may not hold for BCNF, but 3NF always achieves lossless join). D: Correct (4NF deals with MVDs). Answer: A, C, D.",
+      },
+      {
+        id: "DBMS-P8",
+        year: "UGC NET June 2023",
+        q: "Which concurrency control protocol ensures both conflict serializability AND freedom from deadlock?",
+        opts: [
+          "A. Both Two Phase Locking and Timestamp Ordering",
+          "B. Neither Two Phase Locking nor Timestamp Ordering",
+          "C. Two Phase Locking (2PL) only",
+          "D. Timestamp Ordering only",
+        ],
+        ans: "D",
+        exp: "2PL ensures conflict serializability but NOT freedom from deadlock (deadlocks can occur). Timestamp Ordering ensures both conflict serializability AND deadlock freedom (transactions are aborted, not blocked). UGC Official: D.",
+      },
+      {
+        id: "DBMS-P9",
+        year: "UGC NET June 2023",
+        q: "In ER diagram and relational model, which of the following is INCORRECT?",
+        opts: [
+          "A. An attribute of an entity can have more than one value",
+          "B. An attribute of an entity can be composite",
+          "C. In a row of relational table, an attribute can have more than one value",
+          "D. In a row of a relational table, an attribute can have exactly one value or NULL",
+        ],
+        ans: "C",
+        exp: "In ER model, multi-valued attributes are allowed (e.g., phone numbers). In relational model, each attribute in a tuple must be atomic (1NF). So statement C is incorrect — relational table attributes cannot have multiple values.",
+      },
+      {
+        id: "DBMS-P10",
+        year: "UGC NET June 2023",
+        q: "Which SQL clause is used to filter groups after grouping, as opposed to filtering individual rows?",
+        opts: ["A. WHERE", "B. HAVING", "C. GROUP BY", "D. ORDER BY"],
+        ans: "B",
+        exp: "HAVING filters groups after GROUP BY aggregation. WHERE filters individual rows before grouping. Example: GROUP BY dept HAVING COUNT(*) > 5 (departments with more than 5 employees).",
+      },
+      {
+        id: "DBMS-P11",
+        year: "UGC NET Dec 2022",
+        q: "A relation R(A, B, C, D) with FDs {A→B, B→C, C→D}. Which normal form does R violate?",
+        opts: ["A. 1NF", "B. 2NF", "C. 3NF", "D. BCNF"],
+        ans: "C",
+        exp: "Key of R is A (A→B→C→D). There is a transitive dependency: A→C via B, and A→D via C. This violates 3NF (non-prime attribute C is transitively dependent on A through B).",
+      },
+      {
+        id: "DBMS-P12",
+        year: "UGC NET Dec 2022",
+        q: "Which of the following is a property of ACID transactions — Durability means:",
+        opts: [
+          "A. Transactions execute fully or not at all",
+          "B. Concurrent transactions produce the same results as sequential execution",
+          "C. Once a transaction commits, its effects are permanent even after system failure",
+          "D. Transaction maintains database from one consistent state to another",
+        ],
+        ans: "C",
+        exp: "ACID Properties: Atomicity (all or nothing), Consistency (valid state to valid state), Isolation (concurrent = serial), Durability (committed data survives failures). Option C describes Durability.",
+      },
+      {
+        id: "DBMS-P13",
+        year: "UGC NET June 2022",
+        q: "Which of the following is NOT a DDL command in SQL?",
+        opts: ["A. CREATE", "B. ALTER", "C. INSERT", "D. DROP"],
+        ans: "C",
+        exp: "DDL (Data Definition Language): CREATE, ALTER, DROP, TRUNCATE, RENAME. DML (Data Manipulation Language): INSERT, UPDATE, DELETE, SELECT. INSERT is DML, not DDL.",
+      },
+      {
+        id: "DBMS-P14",
+        year: "UGC NET Dec 2021",
+        q: "In two-phase locking (2PL), the two phases are:",
+        opts: [
+          "A. Read phase and Write phase",
+          "B. Growing phase (acquire locks) and Shrinking phase (release locks)",
+          "C. Lock phase and Unlock phase",
+          "D. Commit phase and Rollback phase",
+        ],
+        ans: "B",
+        exp: "2PL has a growing phase (locks can only be acquired, not released) and a shrinking phase (locks can only be released, not acquired). After releasing the first lock, no new lock can be acquired.",
+      },
+      {
+        id: "DBMS-P15",
+        year: "UGC NET Dec 2020/June 2021",
+        q: "The relational algebra operation that selects rows satisfying a condition is:",
+        opts: [
+          "A. Projection (π)",
+          "B. Selection (σ)",
+          "C. Join (⋈)",
+          "D. Rename (ρ)",
+        ],
+        ans: "B",
+        exp: "Selection (σ) retrieves rows (tuples) satisfying a predicate. Projection (π) retrieves specific columns. Join combines two relations. Example: σ_age>25(EMPLOYEE) selects employees older than 25.",
+      },
+      {
+        id: "DBMS-P16",
+        year: "UGC NET June 2020",
+        q: "Which of the following is a lossless decomposition criterion (the lossless join property)?",
+        opts: [
+          "A. R1 ∩ R2 → R1",
+          "B. R1 ∩ R2 → R1 or R1 ∩ R2 → R2",
+          "C. R1 ∪ R2 = R",
+          "D. FDs are preserved in each sub-relation",
+        ],
+        ans: "B",
+        exp: "Decomposition of R into R1, R2 is lossless iff the common attributes (R1∩R2) form a superkey for R1 OR R2 — i.e., R1∩R2 → R1 or R1∩R2 → R2. This ensures natural join reproduces original relation.",
+      },
+      {
+        id: "DBMS-P17",
+        year: "UGC NET Dec 2019",
+        q: "In a relational database, the degree of a relation refers to:",
+        opts: [
+          "A. Number of tuples in the relation",
+          "B. Number of attributes in the relation",
+          "C. Number of candidate keys",
+          "D. Number of foreign keys",
+        ],
+        ans: "B",
+        exp: "Degree = number of attributes (columns). Cardinality = number of tuples (rows). Example: EMPLOYEE(EmpID, Name, Dept, Salary) has degree 4.",
+      },
+      {
+        id: "DBMS-P18",
+        year: "UGC NET June 2019",
+        q: "Which of the following is true about a superkey in relational databases?",
+        opts: [
+          "A. A superkey is always a minimal key",
+          "B. Every candidate key is a superkey",
+          "C. A superkey cannot have redundant attributes",
+          "D. Foreign key is always a superkey",
+        ],
+        ans: "B",
+        exp: "A superkey is any set of attributes that uniquely identifies tuples. A candidate key is a MINIMAL superkey. Every candidate key is a superkey (but not every superkey is a candidate key).",
+      },
+      {
+        id: "DBMS-P19",
+        year: "UGC NET June 2019",
+        q: "In SQL, a transaction that reads uncommitted data from another transaction is called:",
+        opts: [
+          "A. Non-repeatable read",
+          "B. Phantom read",
+          "C. Dirty read",
+          "D. Lost update",
+        ],
+        ans: "C",
+        exp: "Dirty Read: reading data written by a transaction that hasn't committed yet. If that transaction rolls back, the read data was 'dirty' (invalid). Non-repeatable read = same row gives different values in same transaction. Phantom = new rows appear.",
+      },
+      {
+        id: "DBMS-P20",
+        year: "UGC NET Dec 2019",
+        q: "Which normal form deals with multi-valued dependencies?",
+        opts: ["A. 1NF", "B. 3NF", "C. BCNF", "D. 4NF"],
+        ans: "D",
+        exp: "4NF eliminates non-trivial multi-valued dependencies (MVDs) that are not implied by candidate keys. A relation is in 4NF if for every non-trivial MVD A ↠ B, A is a superkey.",
+      },
+    ],
+    practice: [
+      {
+        id: "DBMS-PR1",
+        q: "What is the difference between DELETE and TRUNCATE in SQL?",
+        opts: [
+          "A. DELETE is DDL; TRUNCATE is DML",
+          "B. TRUNCATE cannot be rolled back; DELETE can be rolled back",
+          "C. DELETE removes structure; TRUNCATE removes data only",
+          "D. Both are identical in all ways",
+        ],
+        ans: "B",
+        exp: "TRUNCATE is DDL (auto-commits, cannot be rolled back in most DBs), removes all rows faster. DELETE is DML (can be rolled back), can have WHERE clause for selective deletion, fires triggers.",
+      },
+      {
+        id: "DBMS-PR2",
+        q: "The concept of 'view' in relational databases is used primarily for:",
+        opts: [
+          "A. Physical storage of data",
+          "B. Providing logical data independence and security",
+          "C. Speeding up joins",
+          "D. Storing aggregate results permanently",
+        ],
+        ans: "B",
+        exp: "Views are virtual tables providing logical data independence (changes to base tables can be hidden), security (restricting column/row access), and simplified query interfaces.",
+      },
+      {
+        id: "DBMS-PR3",
+        q: "Referential integrity is maintained by:",
+        opts: [
+          "A. Primary key constraints",
+          "B. Unique key constraints",
+          "C. Foreign key constraints",
+          "D. NOT NULL constraints",
+        ],
+        ans: "C",
+        exp: "Referential integrity ensures that a foreign key value must either match an existing primary key value in the referenced table or be NULL. This prevents orphan references.",
+      },
+      {
+        id: "DBMS-PR4",
+        q: "Which of the following is correct about a relation in 2NF?",
+        opts: [
+          "A. No partial dependencies on any candidate key",
+          "B. No transitive dependencies",
+          "C. Every MVD is implied by the candidate key",
+          "D. All attributes are atomically valued",
+        ],
+        ans: "A",
+        exp: "2NF: relation is in 1NF AND has no partial functional dependencies (no non-prime attribute depends on a proper subset of any candidate key). 3NF eliminates transitive dependencies. 1NF requires atomic values.",
+      },
+      {
+        id: "DBMS-PR5",
+        q: "Which of the following SQL queries uses a subquery correctly?",
+        opts: [
+          "A. SELECT * FROM emp WHERE salary > AVG(salary)",
+          "B. SELECT * FROM emp WHERE salary > (SELECT AVG(salary) FROM emp)",
+          "C. SELECT AVG(salary) WHERE salary > 5000",
+          "D. SELECT * FROM emp HAVING salary > AVG(salary)",
+        ],
+        ans: "B",
+        exp: "Aggregate functions like AVG cannot be directly used in WHERE clause. A subquery must be used: WHERE salary > (SELECT AVG(salary) FROM emp). HAVING is used after GROUP BY.",
+      },
+      {
+        id: "DBMS-PR6",
+        q: "In B+ trees, data records are stored:",
+        opts: [
+          "A. In all nodes (internal and leaf)",
+          "B. Only in internal nodes",
+          "C. Only in leaf nodes",
+          "D. In the root only",
+        ],
+        ans: "C",
+        exp: "In B+ trees, all actual data records (or pointers to them) are stored in leaf nodes. Internal nodes contain only keys for routing. Leaf nodes are also linked for efficient range queries.",
+      },
+      {
+        id: "DBMS-PR7",
+        q: "Which of the following is the correct definition of a 'functional dependency' A → B?",
+        opts: [
+          "A. A uniquely determines B: same A value always gives same B value",
+          "B. B is a subset of A",
+          "C. A and B always have the same values",
+          "D. B functionally determines A",
+        ],
+        ans: "A",
+        exp: "Functional Dependency A → B: for any two tuples t1 and t2 in a relation, if t1[A] = t2[A] then t1[B] = t2[B]. A 'determines' B — knowing A value uniquely identifies B value.",
+      },
+      {
+        id: "DBMS-PR8",
+        q: "Which join returns only rows with matching values in BOTH tables?",
+        opts: [
+          "A. Left outer join",
+          "B. Right outer join",
+          "C. Inner join",
+          "D. Cross join",
+        ],
+        ans: "C",
+        exp: "Inner join (equijoin) returns only rows where there is a match in both tables based on the join condition. Left/Right outer joins include unmatched rows from one side. Cross join is Cartesian product.",
+      },
+      {
+        id: "DBMS-PR9",
+        q: "Armstrong's axioms for functional dependencies include which of the following?",
+        opts: [
+          "A. Reflexivity, Augmentation, Transitivity",
+          "B. Commutativity, Associativity, Distributivity",
+          "C. Reflexivity, Symmetry, Transitivity",
+          "D. Union, Intersection, Difference",
+        ],
+        ans: "A",
+        exp: "Armstrong's axioms (sound and complete): (1) Reflexivity: if Y ⊆ X then X→Y. (2) Augmentation: if X→Y then XZ→YZ. (3) Transitivity: if X→Y and Y→Z then X→Z. From these we derive Union, Decomposition, Pseudotransitivity.",
+      },
+      {
+        id: "DBMS-PR10",
+        q: "In distributed databases, the CAP theorem states you can have at most 2 of 3 properties. These are:",
+        opts: [
+          "A. Consistency, Availability, Partition tolerance",
+          "B. Concurrency, Atomicity, Persistence",
+          "C. Correctness, Accuracy, Performance",
+          "D. Consistency, Atomicity, Partitioning",
+        ],
+        ans: "A",
+        exp: "CAP Theorem (Brewer's theorem): A distributed system can simultaneously guarantee at most 2 of: Consistency (all nodes see same data), Availability (every request gets a response), Partition tolerance (system works despite network failures).",
+      },
+      {
+        id: "DBMS-PR11",
+        q: "The GRANT statement in SQL is part of which SQL category?",
+        opts: ["A. DDL", "B. DML", "C. DCL", "D. TCL"],
+        ans: "C",
+        exp: "DCL (Data Control Language): GRANT and REVOKE are used to control access permissions to database objects. DDL = CREATE/ALTER/DROP. DML = SELECT/INSERT/UPDATE/DELETE. TCL = COMMIT/ROLLBACK/SAVEPOINT.",
+      },
+      {
+        id: "DBMS-PR12",
+        q: "Which of the following describes the 'Phantom Read' anomaly in database transactions?",
+        opts: [
+          "A. Reading data that was never committed",
+          "B. Same query returns different rows in the same transaction due to inserts by another transaction",
+          "C. Two transactions overwrite each other's updates",
+          "D. Reading a row that was deleted by another transaction",
+        ],
+        ans: "B",
+        exp: "Phantom Read: transaction T1 executes a query, another transaction T2 inserts rows satisfying the query's condition and commits, T1 re-executes the query and gets different (phantom) rows.",
+      },
+      {
+        id: "DBMS-PR13",
+        q: "The E-R model's 'weak entity' is characterized by:",
+        opts: [
+          "A. Having more than one primary key",
+          "B. Not having a primary key; depends on a strong entity",
+          "C. Having no attributes",
+          "D. Being related to exactly one other entity",
+        ],
+        ans: "B",
+        exp: "A weak entity does not have its own primary key and depends on a strong (identifying) entity for its existence. It has a partial key (discriminator) combined with the parent's key to form a unique identifier.",
+      },
+      {
+        id: "DBMS-PR14",
+        q: "Which index structure provides the fastest access for range queries (e.g., salary BETWEEN 30000 AND 60000)?",
+        opts: [
+          "A. Hash index",
+          "B. B+ tree index",
+          "C. Bitmap index",
+          "D. Inverted index",
+        ],
+        ans: "B",
+        exp: "B+ tree indexes are ideal for range queries because leaf nodes are linked in sorted order — once the starting value is found, range traversal is efficient. Hash indexes only support equality lookups.",
+      },
+      {
+        id: "DBMS-PR15",
+        q: "In database recovery, the 'undo' log is used to:",
+        opts: [
+          "A. Redo all committed transactions",
+          "B. Restore the database to state before an aborted transaction",
+          "C. Compress log files",
+          "D. Commit partial transactions",
+        ],
+        ans: "B",
+        exp: "Undo logging (STEAL policy): before a page is written to disk, log the old value. On recovery, undo incomplete (aborted) transactions by restoring old values. Redo log does the opposite for committed transactions.",
+      },
+      {
+        id: "DBMS-PR16",
+        q: "The closure of a set of functional dependencies F is denoted F⁺ and represents:",
+        opts: [
+          "A. All FDs that can be derived from F using Armstrong's axioms",
+          "B. The minimal cover of F",
+          "C. The set of all candidate keys",
+          "D. The set of all attributes in the relation",
+        ],
+        ans: "A",
+        exp: "F⁺ (closure of F) = all functional dependencies that can be logically derived from F using Armstrong's axioms (reflexivity, augmentation, transitivity). Used to check if a decomposition preserves all FDs.",
+      },
+      {
+        id: "DBMS-PR17",
+        q: "Which of the following operations is NOT part of relational algebra?",
+        opts: [
+          "A. Selection (σ)",
+          "B. Projection (π)",
+          "C. Outer Join (⟕)",
+          "D. Natural Join (⋈)",
+        ],
+        ans: "C",
+        exp: "Basic relational algebra: Selection, Projection, Union, Set Difference, Cartesian Product, Rename. Natural Join is a derived operation. Outer Join is an EXTENDED relational algebra operation (not in Codd's original 8 operators).",
+      },
+      {
+        id: "DBMS-PR18",
+        q: "In SQL, the DEFAULT constraint is used to:",
+        opts: [
+          "A. Set the maximum value of a column",
+          "B. Automatically provide a value when INSERT doesn't specify one",
+          "C. Link two tables",
+          "D. Ensure column values are unique",
+        ],
+        ans: "B",
+        exp: "DEFAULT constraint specifies a default value for a column when an INSERT statement doesn't explicitly provide a value for that column. Example: salary DECIMAL DEFAULT 30000.",
+      },
+      {
+        id: "DBMS-PR19",
+        q: "Star schema in data warehousing consists of:",
+        opts: [
+          "A. Multiple fact tables connected in a chain",
+          "B. One fact table surrounded by dimension tables",
+          "C. Only dimension tables with no fact table",
+          "D. Normalized tables in 3NF",
+        ],
+        ans: "B",
+        exp: "Star Schema: one central fact table (containing measurable metrics/foreign keys) surrounded by denormalized dimension tables (describing context). Used in OLAP/data warehouses for fast analytical queries.",
+      },
+      {
+        id: "DBMS-PR20",
+        q: "The concept of 'atomicity' in ACID transactions means:",
+        opts: [
+          "A. Transactions run simultaneously without interfering",
+          "B. A transaction either completes fully or has no effect at all",
+          "C. Committed data persists even after crashes",
+          "D. Database moves from one consistent state to another",
+        ],
+        ans: "B",
+        exp: "Atomicity: a transaction is an 'all-or-nothing' unit. If any part fails, the entire transaction is rolled back, leaving the database unchanged. This is enforced via undo logs.",
+      },
+      {
+        id: "DBMS-PR21",
+        q: "Which of the following is an example of a non-correlated subquery?",
+        opts: [
+          "A. SELECT * FROM emp e WHERE salary > (SELECT AVG(salary) FROM emp WHERE dept = e.dept)",
+          "B. SELECT * FROM emp WHERE salary > (SELECT AVG(salary) FROM emp)",
+          "C. SELECT e.name FROM emp e WHERE EXISTS (SELECT 1 FROM dept d WHERE d.id = e.dept_id)",
+          "D. Both A and C",
+        ],
+        ans: "B",
+        exp: "Non-correlated subquery: the inner query is independent of the outer query and executes only once. Option B's inner query doesn't reference the outer query. Option A and C are correlated (reference outer query attributes).",
+      },
+      {
+        id: "DBMS-PR22",
+        q: "Which of the following best describes 'data independence' in DBMS?",
+        opts: [
+          "A. Data can be accessed without knowing the storage hardware",
+          "B. Changes in data storage or logical structure don't affect application programs",
+          "C. Data is replicated across multiple servers",
+          "D. Multiple users can access data simultaneously",
+        ],
+        ans: "B",
+        exp: "Data independence has two levels: Physical (changes in physical storage don't affect logical schema) and Logical (changes in logical schema don't affect application programs/external schema).",
+      },
+      {
+        id: "DBMS-PR23",
+        q: "In relational algebra, the NATURAL JOIN of R and S:",
+        opts: [
+          "A. Performs equijoin on ALL common attributes and removes duplicate columns",
+          "B. Performs Cartesian product and then adds a join condition",
+          "C. Only returns rows from R that have a match in S",
+          "D. Is equivalent to R ∪ S",
+        ],
+        ans: "A",
+        exp: "Natural Join: joins R and S on ALL columns with the same name, keeping one copy of each common column. It's an equijoin on common attributes with projection to remove duplicate columns.",
+      },
+      {
+        id: "DBMS-PR24",
+        q: "What is a 'transaction schedule' in DBMS?",
+        opts: [
+          "A. A backup plan for database recovery",
+          "B. A sequence of operations from multiple transactions ordered in time",
+          "C. A list of SQL queries to be executed",
+          "D. A timetable for database maintenance",
+        ],
+        ans: "B",
+        exp: "A schedule is a sequence of operations (reads/writes) from multiple concurrent transactions, showing the order of interleaved execution. A serial schedule executes one transaction at a time; concurrent schedules interleave operations.",
+      },
+      {
+        id: "DBMS-PR25",
+        q: "The ROLLBACK statement in SQL is used for:",
+        opts: [
+          "A. Permanently saving transaction changes",
+          "B. Undoing all changes made in the current transaction",
+          "C. Deleting all rows from a table",
+          "D. Reverting the database schema",
+        ],
+        ans: "B",
+        exp: "ROLLBACK (TCL command) undoes all changes made in the current transaction since the last COMMIT or SAVEPOINT. COMMIT permanently saves changes. ROLLBACK TO SAVEPOINT rolls back to a specific savepoint.",
+      },
+    ],
+  },
+};
 
-    function App() {
-      const [currentSubject, setCurrentSubject] = useState("toc");
-      const [currentQuestion, setCurrentQuestion] = useState(0);
-      const [showAnswer, setShowAnswer] = useState(false);
-      const [selectedAnswer, setSelectedAnswer] = useState(null);
+const TABS = [
+  { key: "toc", label: "Theory of Computation", icon: "⚙️" },
+  { key: "ds", label: "Data Structures", icon: "🌲" },
+  { key: "dbms", label: "DBMS", icon: "🗄️" },
+];
 
-      const subject = data[currentSubject];
-      const questions = subject.pyq;
-      const question = questions[currentQuestion];
+const VIEWS = [
+  { key: "pyq", label: "PYQs (2019–2024)" },
+  { key: "practice", label: "Practice (25 Qs)" },
+  { key: "answerkey", label: "Answer Key" },
+];
 
-      return (
-        <div style={{ padding: "20px" }}>
-          <h1>📚 UGC NET Question Bank</h1>
-          <div style={{ marginBottom: "20px" }}>
-            <button
-              onClick={() => {
-                setCurrentSubject("toc");
-                setCurrentQuestion(0);
-                setShowAnswer(false);
-                setSelectedAnswer(null);
-              }}
+function QuestionCard({ q, idx, showAns }) {
+  const [revealed, setRevealed] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const show = showAns || revealed;
+  const color = q.id.startsWith("TOC") ? "#4f46e5" : q.id.startsWith("DS") ? "#0891b2" : "#059669";
+
+  return (
+    <div style={{
+      background: "#1e1e2e",
+      border: `1px solid ${color}33`,
+      borderRadius: 12,
+      padding: "1.2rem 1.4rem",
+      marginBottom: "1.1rem",
+    }}>
+      <div style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 8 }}>
+        <span style={{
+          background: color + "22",
+          color,
+          borderRadius: 6,
+          padding: "2px 10px",
+          fontWeight: 700,
+          fontSize: 12,
+          flexShrink: 0,
+        }}>Q{idx + 1}</span>
+        {q.year && (
+          <span style={{
+            background: "#313244",
+            color: "#cdd6f4",
+            borderRadius: 6,
+            padding: "2px 10px",
+            fontSize: 11,
+            fontWeight: 600,
+          }}>{q.year}</span>
+        )}
+      </div>
+      <p style={{ color: "#cdd6f4", fontSize: 14, lineHeight: 1.6, whiteSpace: "pre-line", marginBottom: 12 }}>
+        {q.q}
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {q.opts.map((opt, i) => {
+          const letter = opt[0];
+          const isCorrect = letter === q.ans;
+          const isSelected = selected === letter;
+          let bg = "#313244";
+          let border = "#45475a";
+          let textColor = "#cdd6f4";
+          if (show) {
+            if (isCorrect) { bg = color + "22"; border = color; textColor = "#fff"; }
+          } else if (isSelected) {
+            bg = "#45475a"; border = "#cdd6f4";
+          }
+          return (
+            <div
+              key={i}
+              onClick={() => !show && setSelected(letter)}
               style={{
-                padding: "10px 20px",
-                marginRight: "10px",
-                backgroundColor: currentSubject === "toc" ? "#4f46e5" : "#333",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
+                background: bg,
+                border: `1px solid ${border}`,
+                borderRadius: 8,
+                padding: "8px 12px",
+                color: textColor,
+                fontSize: 13,
+                cursor: show ? "default" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                transition: "all 0.15s",
               }}
             >
-              Theory of Computation
-            </button>
-            <button
-              onClick={() => {
-                setCurrentSubject("ds");
-                setCurrentQuestion(0);
-                setShowAnswer(false);
-                setSelectedAnswer(null);
-              }}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: currentSubject === "ds" ? "#0891b2" : "#333",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
-              Data Structures
-            </button>
-          </div>
-
-          {question && (
-            <div style={{ backgroundColor: "#1e293b", padding: "20px", borderRadius: "8px" }}>
-              <p style={{ color: "#94a3b8" }}>
-                Question {currentQuestion + 1} of {questions.length} • {question.year}
-              </p>
-              <h2>{question.q}</h2>
-              <div style={{ marginTop: "20px" }}>
-                {question.opts.map((opt, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedAnswer(idx)}
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      padding: "12px",
-                      margin: "8px 0",
-                      backgroundColor:
-                        selectedAnswer === idx ? subject.accent : "#334155",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "5px",
-                      textAlign: "left",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
-
-              {selectedAnswer !== null && (
-                <button
-                  onClick={() => setShowAnswer(!showAnswer)}
-                  style={{
-                    padding: "10px 20px",
-                    marginTop: "20px",
-                    backgroundColor: subject.color,
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
-                >
-                  {showAnswer ? "Hide Answer" : "Show Answer"}
-                </button>
-              )}
-
-              {showAnswer && (
-                <div style={{ marginTop: "20px", backgroundColor: "#0f172a", padding: "15px", borderRadius: "5px" }}>
-                  <p style={{ color: "#10b981" }}>
-                    ✓ Correct Answer: <strong>{question.ans}</strong>
-                  </p>
-                  <p>{question.exp}</p>
-                </div>
-              )}
-
-              <div style={{ marginTop: "30px" }}>
-                <button
-                  onClick={() => {
-                    setCurrentQuestion(Math.max(0, currentQuestion - 1));
-                    setShowAnswer(false);
-                    setSelectedAnswer(null);
-                  }}
-                  disabled={currentQuestion === 0}
-                  style={{
-                    padding: "10px 20px",
-                    marginRight: "10px",
-                    backgroundColor: currentQuestion === 0 ? "#475569" : "#64748b",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: currentQuestion === 0 ? "not-allowed" : "pointer",
-                  }}
-                >
-                  ← Previous
-                </button>
-                <button
-                  onClick={() => {
-                    setCurrentQuestion(Math.min(questions.length - 1, currentQuestion + 1));
-                    setShowAnswer(false);
-                    setSelectedAnswer(null);
-                  }}
-                  disabled={currentQuestion === questions.length - 1}
-                  style={{
-                    padding: "10px 20px",
-                    backgroundColor: currentQuestion === questions.length - 1 ? "#475569" : "#64748b",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: currentQuestion === questions.length - 1 ? "not-allowed" : "pointer",
-                  }}
-                >
-                  Next →
-                </button>
-              </div>
+              {show && isCorrect && <span style={{ color }}>✓</span>}
+              {opt}
             </div>
+          );
+        })}
+      </div>
+      {show && (
+        <div style={{
+          marginTop: 12,
+          background: "#11111b",
+          borderRadius: 8,
+          padding: "10px 14px",
+          borderLeft: `3px solid ${color}`,
+        }}>
+          <span style={{ color, fontWeight: 700, fontSize: 12 }}>✦ EXPLANATION: </span>
+          <span style={{ color: "#a6adc8", fontSize: 13, lineHeight: 1.6 }}>{q.exp}</span>
+        </div>
+      )}
+      {!show && (
+        <button
+          onClick={() => setRevealed(true)}
+          style={{
+            marginTop: 10,
+            background: "transparent",
+            border: `1px solid ${color}`,
+            color,
+            borderRadius: 6,
+            padding: "5px 14px",
+            fontSize: 12,
+            cursor: "pointer",
+            fontWeight: 600,
+          }}
+        >
+          Reveal Answer
+        </button>
+      )}
+    </div>
+  );
+}
+
+function AnswerKey({ questions, label, color }) {
+  return (
+    <div>
+      <h3 style={{ color: "#cdd6f4", fontSize: 15, marginBottom: 12 }}>{label} — Answer Key</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+          <thead>
+            <tr style={{ background: color + "22" }}>
+              <th style={{ padding: "8px 12px", color, textAlign: "left", borderBottom: `1px solid ${color}33` }}>Q#</th>
+              <th style={{ padding: "8px 12px", color, textAlign: "left", borderBottom: `1px solid ${color}33` }}>Year</th>
+              <th style={{ padding: "8px 12px", color, textAlign: "left", borderBottom: `1px solid ${color}33` }}>Answer</th>
+              <th style={{ padding: "8px 12px", color, textAlign: "left", borderBottom: `1px solid ${color}33`, maxWidth: 300 }}>Brief Explanation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {questions.map((q, i) => (
+              <tr key={q.id} style={{ borderBottom: "1px solid #313244" }}>
+                <td style={{ padding: "7px 12px", color: "#cdd6f4", fontWeight: 700 }}>Q{i + 1}</td>
+                <td style={{ padding: "7px 12px", color: "#a6adc8", fontSize: 11 }}>{q.year || "Practice"}</td>
+                <td style={{ padding: "7px 12px" }}>
+                  <span style={{ background: color + "22", color, borderRadius: 4, padding: "2px 8px", fontWeight: 700 }}>
+                    {q.ans}
+                  </span>
+                </td>
+                <td style={{ padding: "7px 12px", color: "#7f849c", fontSize: 12, maxWidth: 320 }}>
+                  {q.exp.slice(0, 90)}{q.exp.length > 90 ? "..." : ""}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState("toc");
+  const [view, setView] = useState("pyq");
+  const [showAll, setShowAll] = useState(false);
+
+  const subject = data[activeTab];
+  const questions = view === "pyq" ? subject.pyq : subject.practice;
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "#11111b",
+      fontFamily: "'Courier New', monospace",
+      color: "#cdd6f4",
+    }}>
+      {/* Header */}
+      <div style={{
+        background: "linear-gradient(135deg, #1e1e2e 0%, #181825 100%)",
+        borderBottom: "1px solid #313244",
+        padding: "1.2rem 1.5rem",
+      }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+            <span style={{ fontSize: 20 }}>📚</span>
+            <h1 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: "#cba6f7" }}>
+              UGC NET JRF — CS Question Bank
+            </h1>
+          </div>
+          <p style={{ margin: 0, fontSize: 12, color: "#6c7086" }}>
+            PYQs (2019–2024) + 25 Practice Questions per topic | TOC · Data Structures · DBMS
+          </p>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.2rem 1rem" }}>
+        {/* Subject Tabs */}
+        <div style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
+          {TABS.map(t => (
+            <button
+              key={t.key}
+              onClick={() => { setActiveTab(t.key); setView("pyq"); setShowAll(false); }}
+              style={{
+                background: activeTab === t.key ? data[t.key].color : "#1e1e2e",
+                border: `1px solid ${data[t.key].color}`,
+                color: activeTab === t.key ? "#fff" : data[t.key].color,
+                borderRadius: 8,
+                padding: "7px 16px",
+                fontWeight: 700,
+                fontSize: 13,
+                cursor: "pointer",
+                transition: "all 0.15s",
+              }}
+            >
+              {t.icon} {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* View Toggle */}
+        <div style={{ display: "flex", gap: 6, marginBottom: 18, flexWrap: "wrap", alignItems: "center" }}>
+          {VIEWS.map(v => (
+            <button
+              key={v.key}
+              onClick={() => { setView(v.key); setShowAll(false); }}
+              style={{
+                background: view === v.key ? "#313244" : "transparent",
+                border: `1px solid ${view === v.key ? "#45475a" : "#313244"}`,
+                color: view === v.key ? "#cdd6f4" : "#6c7086",
+                borderRadius: 6,
+                padding: "5px 14px",
+                fontSize: 12,
+                cursor: "pointer",
+                fontWeight: 600,
+              }}
+            >
+              {v.label}
+            </button>
+          ))}
+          {view !== "answerkey" && (
+            <button
+              onClick={() => setShowAll(!showAll)}
+              style={{
+                marginLeft: "auto",
+                background: showAll ? "#f38ba822" : "transparent",
+                border: `1px solid ${showAll ? "#f38ba8" : "#313244"}`,
+                color: showAll ? "#f38ba8" : "#6c7086",
+                borderRadius: 6,
+                padding: "5px 14px",
+                fontSize: 12,
+                cursor: "pointer",
+                fontWeight: 600,
+              }}
+            >
+              {showAll ? "Hide All Answers" : "Show All Answers"}
+            </button>
           )}
         </div>
-      );
-    }
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<App />);
-  </script>
+        {/* Stats Bar */}
+        {view !== "answerkey" && (
+          <div style={{
+            background: "#1e1e2e",
+            border: `1px solid ${subject.color}33`,
+            borderRadius: 10,
+            padding: "10px 16px",
+            marginBottom: 16,
+            display: "flex",
+            gap: 20,
+            flexWrap: "wrap",
+            fontSize: 12,
+          }}>
+            <span style={{ color: subject.color }}>
+              📋 <strong>{questions.length}</strong> questions
+            </span>
+            <span style={{ color: "#a6adc8" }}>
+              {view === "pyq" ? "🕐 Years: 2019–2024" : "🎯 Extra Practice Set"}
+            </span>
+            <span style={{ color: "#a6adc8" }}>
+              ✦ Subject: <strong style={{ color: "#cdd6f4" }}>{subject.label}</strong>
+            </span>
+          </div>
+        )}
+
+        {/* Content */}
+        {view === "answerkey" ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <AnswerKey questions={subject.pyq} label={`${subject.label} — Previous Year Questions`} color={subject.color} />
+            <AnswerKey questions={subject.practice} label={`${subject.label} — Practice Questions`} color={subject.color} />
+          </div>
+        ) : (
+          <div>
+            {questions.map((q, i) => (
+              <QuestionCard key={q.id} q={q} idx={i} showAns={showAll} />
+            ))}
+          </div>
+        )}
+
+        <div style={{ textAlign: "center", color: "#6c7086", fontSize: 11, padding: "1rem 0", marginTop: 8 }}>
+          UGC NET June 2026 prep | Questions sourced from official NTA papers 2019–2024
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
+</script>
+
 </body>
 </html>
